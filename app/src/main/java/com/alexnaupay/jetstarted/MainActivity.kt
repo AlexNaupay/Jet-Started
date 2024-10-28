@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alexnaupay.jetstarted.ui.theme.BlueI
@@ -41,12 +42,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyUI() {
-    Row(modifier = Modifier.background(MaterialTheme.colorScheme.background).padding(8.dp)) {
+    Row(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(8.dp)
+    ) {
         GenericImage()
         Spacer(modifier = Modifier.width(8.dp))
         Column {
-            GenericText("Hello @alexh", color = MaterialTheme.colorScheme.onBackground)
-            Spacer(modifier = Modifier.height(4.dp) )
+            GenericText(
+                "Hello @alexh",
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleMedium
+            )
+            Spacer(modifier = Modifier.height(4.dp))
             GenericText("How Are You", color = BlueI)
         }
     }
@@ -57,16 +66,25 @@ fun GenericImage() {
     Image(
         painter = painterResource(id = R.drawable.ic_launcher_foreground),
         contentDescription = "Foreground icon of Android",
-        modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.primary).size(64.dp)
+        modifier = Modifier
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.primary)
+            .size(64.dp)
     )
 
 }
 
 @Composable
-fun GenericText(text: String, color:Color, modifier: Modifier = Modifier) {
+fun GenericText(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier,
+    style: TextStyle = TextStyle.Default
+) {
     Text(
         text = text,
         color = color,
+        style = style,
         modifier = modifier
     )
 }

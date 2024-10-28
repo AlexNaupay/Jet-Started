@@ -14,8 +14,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -91,17 +95,36 @@ val messages: List<Message> = listOf(
     ),
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FirstScreen(navController: NavController? = null){
-    Column {
-        Spacer(modifier = Modifier.height(32.dp))
-        Button(onClick = { navController?.navigate(route = AppScreens.SecondScreen.route)},
-            modifier = Modifier.align(Alignment.CenterHorizontally)) {
-            Text("Navigate to second")
+fun FirstScreen(navController: NavController? = null) {
+
+    Scaffold(topBar = {
+        TopAppBar(
+            colors = topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
+            title = {
+                Text("First Screen")
+            }
+        )
+    }) { innerPadding ->
+        Column {
+            Spacer(modifier = Modifier
+                .height(150.dp)
+                .padding(innerPadding))
+            Button(
+                onClick = { navController?.navigate(route = AppScreens.SecondScreen.route) },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text("Navigate to second")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            MessagesList(messages)
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        MessagesList(messages)
     }
+
 }
 
 @Composable

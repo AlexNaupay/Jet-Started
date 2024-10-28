@@ -115,7 +115,7 @@ fun FirstScreen(navController: NavController? = null) {
                 .height(150.dp)
                 .padding(innerPadding))
             Button(
-                onClick = { navController?.navigate(route = AppScreens.SecondScreen.route) },
+                onClick = { navController?.navigate(route = AppScreens.SecondScreen.route + "/This is an argument") },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text("Navigate to second")

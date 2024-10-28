@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SecondScreen(navController: NavController? = null) {
+fun SecondScreen(navController: NavController? = null, text: String? = null) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -42,19 +42,23 @@ fun SecondScreen(navController: NavController? = null) {
         )
     }) { innerPadding ->
         Row(modifier = Modifier.padding(innerPadding)) {
-            ContentScreen(navController)
+            ContentScreen(navController, text)
         }
     }
 }
 
 @Composable
-fun ContentScreen(navController: NavController?) {
+fun ContentScreen(navController: NavController?, text: String?) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Hello navigation")
+        text?.let {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(it)
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController?.popBackStack() }) {
             Text("Return to previous")

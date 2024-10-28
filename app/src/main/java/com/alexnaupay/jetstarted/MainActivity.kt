@@ -90,6 +90,7 @@ fun GenericText(
     )
 }
 
+@Preview
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun GreetingPreview() {

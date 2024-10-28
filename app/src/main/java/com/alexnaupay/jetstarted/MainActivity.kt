@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,19 +36,58 @@ import com.alexnaupay.jetstarted.ui.theme.BlueI
 import com.alexnaupay.jetstarted.ui.theme.JetStartedTheme
 
 private val messages: List<Message> = listOf(
-    Message("First message", "This is the first message"),
-    Message("Second message", "This is the second message"),
-    Message("Third message", "This is the third message"),
-    Message("Fourth message", "This is the fourth message"),
-    Message("Fifth message", "This is the fifth message"),
-    Message("Sixth message", "This is the sixth message"),
-    Message("Seventh message", "This is the seventh message"),
-    Message("Eighth message", "This is the eighth message"),
-    Message("Ninth message", "This is the ninth message"),
-    Message("Tenth message", "This is the tenth message"),
-    Message("Eleventh message", "This is the eleventh message"),
-    Message("Twelfth message", "This is the twelfth message"),
-    Message("Thirteenth message", "This is the thirteenth message"),
+    Message(
+        "First message",
+        "This is the first message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit"
+    ),
+    Message(
+        "Second message",
+        "This is the second message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Third message",
+        "This is the third message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Fourth message",
+        "This is the fourth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Fifth message",
+        "This is the fifth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Sixth message",
+        "This is the sixth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Seventh message",
+        "This is the seventh message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Eighth message",
+        "This is the eighth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Ninth message",
+        "This is the ninth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Tenth message",
+        "This is the tenth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Eleventh message",
+        "This is the eleventh message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Twelfth message",
+        "This is the twelfth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
+    Message(
+        "Thirteenth message",
+        "This is the thirteenth message Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse"
+    ),
 )
 
 class MainActivity : ComponentActivity() {
@@ -60,7 +104,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MessagesList(messages: List<Message> = emptyList()){
+fun MessagesList(messages: List<Message> = emptyList()) {
     LazyColumn {
         items(messages) { message ->
             MessageComponent(message)
@@ -70,6 +114,11 @@ fun MessagesList(messages: List<Message> = emptyList()){
 
 @Composable
 fun MessageComponent(message: Message) {
+    // Remember the expanded state
+    // If the message is expanded, display all its content
+    // otherwise only display the first line
+    // mutableStateOf is used to allow the state to be modified (then re-render the UI)
+    var expanded by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -77,14 +126,16 @@ fun MessageComponent(message: Message) {
     ) {
         GenericImage()
         Spacer(modifier = Modifier.width(8.dp))
-        Column {
+        Column(Modifier.clickable {
+            expanded = !expanded
+        }) {
             GenericText(
                 text = message.title,
                 color = MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            GenericText(message.title, color = BlueI)
+            GenericText(message.body, color = BlueI, lines = if (expanded) Int.MAX_VALUE else 1)
         }
     }
 }
@@ -107,12 +158,14 @@ fun GenericText(
     text: String,
     color: Color,
     modifier: Modifier = Modifier,
-    style: TextStyle = TextStyle.Default
+    style: TextStyle = TextStyle.Default,
+    lines: Int = Int.MAX_VALUE
 ) {
     Text(
         text = text,
         color = color,
         style = style,
+        maxLines = lines,
         modifier = modifier
     )
 }

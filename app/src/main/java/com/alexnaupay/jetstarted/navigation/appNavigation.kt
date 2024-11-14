@@ -9,12 +9,18 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.alexnaupay.jetstarted.screens.FirstScreen
 import com.alexnaupay.jetstarted.screens.SecondScreen
+import com.alexnaupay.jetstarted.screens.SplashScreen
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = AppScreens.FirstScreen.route) {
+    NavHost(navController = navController, startDestination = AppScreens.SplashScreen.route) {
+
+        composable(route = AppScreens.SplashScreen.route) {
+            SplashScreen(navController)
+        }
+
         composable(route = AppScreens.FirstScreen.route) {
             FirstScreen(navController)
         }
